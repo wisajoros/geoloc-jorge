@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">  
+  <head>    
+    <title>Ejercicios</title>    
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
+    <style type="text/css">
+        #div-texto{
+            margin-top: 10px;
+        }
+    </style>   
+  </head>  
+  <body>    
+    
+    <input id="invertir-texto" type="text" placeholder="Escribe una frase" onkeyup="realizarProceso()">
+    <div id="div-texto" ></div>
+
+    <script>
+        
+        function realizarProceso(){
+            let texto = $("#invertir-texto").val().split(" ").reverse().join(' ');
+            $("#div-texto").html(texto);
+            console.log(texto);
+        }
+        
+
+    </script>
+  </body>  
+</html>

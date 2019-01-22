@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">  
+  <head>    
+    <title>Geolocalización</title>    
+    <meta charset="UTF-8">
+    <meta name="title" content="Geolocalizacion">
+    <meta name="description" content="Obten tu ubicación">    
+    <style type="text/css">
+        section{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            height: 70px;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            margin-top: 50px;
+            background: #000000; 
+            border-radius: 10px;
+        }
+        #mensajes{
+            display: none;
+            height: 75px;
+            padding-top: 15px;
+            padding-bottom: 15px!important;
+            text-align: center;
+            color: white;
+        }
+        section input{
+            width: 150px;
+            height: 30px;
+            background: #ffffff;
+            color: #000;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all .2s;
+            border: 0px;
+            border-radius: 4px;
+        }
+        section input:hover{
+            letter-spacing: 1px;
+            background: #ff1515;
+            transition: all .2s;
+            color: white;
+        }
+        section div{
+            position: relative;
+            width: 300px;
+            float: left;
+            margin-bottom: 10px;
+            
+        }
+    </style>   
+  </head>  
+  <body>    
+    <section>
+        <input type="button" value="Haz la magia" onclick="navigator.geolocation.getCurrentPosition( success, error, options )">
+    </section>
+    <section id="mensajes">
+        <div id="div_1"></div><br>
+        <div id="div_2"></div><br>
+        <div id="div_3"></div>
+    </section>
+
+    <script>
+        var getBrowserInfo = function() {
+            var ua= navigator.userAgent, tem, 
+            M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+            if(/trident/i.test(M[1])){
+                tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+                return 'IE '+(tem[1] || '');
+            }
+            if(M[1]=== 'Chrome'){
+                tem= ua.match(/\b(OPR|Edge)\/(\d+)/);
+                if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+            }
+            M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+            if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+            let join=M.join(' '); 
+            document.getElementById("div_3").innerHTML = "Tu User Agent es: "+join;
+        };
+
+        var options = {
+                enableHighAccuracy: true,
+                timeout: 6000,
+                maximumAge: 0
+            };
+            function success(position) {
+                var coordenadas = position.coords;
+                document.getElementById("mensajes").style.display = "block"
+                document.getElementById("div_1").innerHTML = "Tu Latitud es: "+coordenadas.latitude;
+                document.getElementById("div_2").innerHTML = "Tu Longitud es: "+coordenadas.longitude;
+                getBrowserInfo();
+            };
+            function error(error) {
+                console.warn('ERROR(' + error.code + '): ' + error.message);
+            };
+    </script>
+  </body>  
+</html>
